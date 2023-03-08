@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { addClass, removeClass } from '@/assets/js/dom'
+import { addClass, removeClass } from './dom.js'
 
 const relativeCls = 'g-relative'
 
