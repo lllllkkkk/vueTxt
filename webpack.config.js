@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAsssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader/dist/index')
+const registerRouter = require('./backend/router')
 
 module.exports = {
   mode: 'development',
@@ -21,6 +22,9 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'public'),
     },
+    before(app){
+      registerRouter(app)
+    }
   },
   optimization: {
     minimize: true,
