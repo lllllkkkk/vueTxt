@@ -22,8 +22,8 @@ module.exports = {
     static: {
       directory: path.join(__dirname, 'public'),
     },
-    before(app){
-      registerRouter(app)
+    onBeforeSetupMiddleware:function(devServer){
+      registerRouter(devServer.app)
     }
   },
   optimization: {

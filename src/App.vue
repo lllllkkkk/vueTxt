@@ -2,6 +2,7 @@
   <div>
     <m-header></m-header>
     <m-tab></m-tab>
+    <router-view></router-view>
   </div>
 </template>
 
