@@ -54,11 +54,13 @@
       const { groupRef, onScroll, fixedTitle, fixedSty, currentIndex} = useFixed(props)
       const { shortcutList, onShortcutTouchStart, scrollRef, onShortcutTouchMove } = useShortcut(props,groupRef)
       return{
+        // use-fixed
         groupRef,
         onScroll,
         fixedTitle,
         fixedSty,
         currentIndex,
+        // use-shortcut
         shortcutList,
         onShortcutTouchStart,
         scrollRef,
