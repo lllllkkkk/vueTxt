@@ -9,7 +9,7 @@
     </div>
     <scroll class="list" :style="scrollSty" @scroll="onScroll" :probe-type="3" v-loading="loading" v-no-result:[noResultText]="noResult">
       <div class="song-list-wrapper">
-        <song-list :songs="songs"></song-list>
+        <song-list :songs="songs" @select="selectItem"></song-list>
       </div>
     </scroll>
   </div>
@@ -18,6 +18,7 @@
 <script>
 import Scroll from '../base/scroll/scroll.vue'
 import SongList from '../base/song-list/song-list.vue'
+import { mapActions } from 'vuex'
 const RESERVED_HEIGHT = 40
 export default {
   name: 'music-list',
@@ -103,11 +104,16 @@ export default {
       this.maxTranslateY = this.imageHeight - RESERVED_HEIGHT
   },
   methods:{
+    ...mapActions(['selectPlay']),
     goBack(){
       this.$router.back()
     },
     onScroll(pos){
       this.scrollY = -pos.y
+    },
+    // 点击歌曲
+    selectItem({song,index}){
+      this.selectPlay({list:this.songs,index})
     }
   }
 }
