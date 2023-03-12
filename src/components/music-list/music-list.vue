@@ -5,6 +5,12 @@
     </div>
     <h1 class="title">{{ title }}</h1>
     <div class="bg-image" :style="bgImageStyle" ref="bgImage">
+      <div class="play-btn-wrapper" :style="playBtnSty">
+        <div v-show="songs.length > 0" class="play-btn" @click="random">
+        <i class="icon-play"></i>
+        <span class="text">随机播放全部</span>
+      </div>
+      </div>
       <div :style="filterSty" class="filter"></div>
     </div>
     <scroll class="list" :style="scrollSty" @scroll="onScroll" :probe-type="3" v-loading="loading" v-no-result:[noResultText]="noResult">
@@ -95,6 +101,15 @@ export default {
       return{
         backdropFilter:`blur(${blur}px)`
       }
+    },
+    playBtnSty(){
+      let display = ''
+        if (this.scrollY >= this.maxTranslateY) {
+          display = 'none'
+        }
+        return {
+          display
+        }
     }
   },
   mounted(){
@@ -104,7 +119,7 @@ export default {
       this.maxTranslateY = this.imageHeight - RESERVED_HEIGHT
   },
   methods:{
-    ...mapActions(['selectPlay']),
+    ...mapActions(['selectPlay','randomPlay']),
     goBack(){
       this.$router.back()
     },
@@ -114,6 +129,10 @@ export default {
     // 点击歌曲
     selectItem({song,index}){
       this.selectPlay({list:this.songs,index})
+    },
+    // 随机播放
+    random(){
+      this.randomPlay(this.songs)
     }
   }
 }
@@ -159,37 +178,37 @@ export default {
     width: 100%;
     transform-origin: top;
     background-size: cover;
-    // .play-btn-wrapper {
-    //   position: absolute;
-    //   bottom: 20px;
-    //   z-index: 10;
-    //   width: 100%;
+    .play-btn-wrapper {
+      position: absolute;
+      bottom: 20px;
+      z-index: 10;
+      width: 100%;
 
-    //   .play-btn {
-    //     box-sizing: border-box;
-    //     width: 135px;
-    //     padding: 7px 0;
-    //     margin: 0 auto;
-    //     text-align: center;
-    //     border: 1px solid $color-theme;
-    //     color: $color-theme;
-    //     border-radius: 100px;
-    //     font-size: 0;
-    //   }
+      .play-btn {
+        box-sizing: border-box;
+        width: 135px;
+        padding: 7px 0;
+        margin: 0 auto;
+        text-align: center;
+        border: 1px solid $color-theme;
+        color: $color-theme;
+        border-radius: 100px;
+        font-size: 0;
+      }
 
-    //   .icon-play {
-    //     display: inline-block;
-    //     vertical-align: middle;
-    //     margin-right: 6px;
-    //     font-size: $font-size-medium-x;
-    //   }
+      .icon-play {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 6px;
+        font-size: $font-size-medium-x;
+      }
 
-    //   .text {
-    //     display: inline-block;
-    //     vertical-align: middle;
-    //     font-size: $font-size-small;
-    //   }
-    // }
+      .text {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: $font-size-small;
+      }
+    }
 
     .filter {
       position: absolute;
