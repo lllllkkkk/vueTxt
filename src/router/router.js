@@ -1,10 +1,11 @@
 import { createRouter , createWebHashHistory} from 'vue-router'
 
 
-import Recommend from '../views/recommend.vue'
-import Singer from '../views/singer.vue'
-import Search from '../views/search.vue'
-import TopList from '../views/top-list.vue'
+import Recommend from '../views/recommend.vue';
+import Singer from '../views/singer.vue';
+import Search from '../views/search.vue';
+import TopList from '../views/top-list.vue';
+import SingerDetail from '../views/singer-detail.vue';
 
 
 const routes = [
@@ -18,7 +19,14 @@ const routes = [
   },
   {
     path: '/singer',
-    component: Singer
+    component: Singer,
+    // 配置子路由
+    children:[
+      {
+        path: ':id',
+        component:SingerDetail
+      }
+    ]
   },
   {
     path: '/search',
